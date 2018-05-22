@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {getUser} from './../../ducks/users';
+import {getUser} from './../../ducks/reducer';
 import {connect} from 'react-redux';
 
 class Profile extends Component{
@@ -13,7 +13,7 @@ class Profile extends Component{
 
     render(){
         console.log(this.props)
-        let {user_name, img, auth_id}=this.props.user;
+        let {user_name, img}=this.props.user;
         return(
             <div>
                 <h2>User Profile</h2>
