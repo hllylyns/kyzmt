@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-// import { createEvent } from '../../ducks/reducer';
+import { createEvent } from '../../../ducks/reducer';
 import { Link } from 'react-router-dom';
 
-class CreateEvent extends Component {
+class Details extends Component {
     constructor() {
         super();
 
@@ -32,6 +32,11 @@ class CreateEvent extends Component {
         this.setState({ location: value });
     }
 
+    handlecreateEvent(){
+        axios.post('/event').then() 
+        // write out axios post endpoint to create event. use createEvent from Reducer
+    }
+
     render() {
         return (
             <div>
@@ -44,14 +49,12 @@ class CreateEvent extends Component {
                     onChange={(e) => this.handleEventDesc(e.target.value)} />
                 <p>Location</p>
                 <input value={this.state.location}
-                    onChange={(e) => this.handleEventDesc(e.target.value)} /> <br/>
-               <Link to = '/event/invite'> <button /*onClick={this.props.createEvent}*/>NEXT</button></Link>
-
+                    onChange={(e) => this.handleLocation(e.target.value)} /> <br/>
+               <Link to = '/event/invite'> <button onClick={this.handlecreateEvent}>NEXT</button></Link>
             </div>
         )
     }
 }
 
-export default CreateEvent;
 
-// export default connect(null, { createEvent })(CreateEvent);
+export default connect(null, { createEvent })(Details);

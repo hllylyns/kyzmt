@@ -6,11 +6,11 @@ class Dashboard extends Component{
     render(){
         return(
             <div>
-            <h1>Dash</h1>
+            {/* <h1>Dash</h1> */}
             <Link to='/event/details'> <button>CREATE KYZMT</button></Link>
-            <h1>Pending Events</h1>
-            <h1>Confirmed Events</h1>
-            <h1>Invitations</h1>
+            <h1>Pending</h1>
+            <h1>Confirmed</h1>
+            <h1>RSVP</h1>
             </div>
         )
     }

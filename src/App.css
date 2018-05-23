@@ -36,10 +36,6 @@ h1{
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
-}
-
 button {
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
@@ -60,7 +56,7 @@ button:hover {
   background: #BA728F;
   text-decoration: none;
 }
-
+ 
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
