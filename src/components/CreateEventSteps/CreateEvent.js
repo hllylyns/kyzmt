@@ -4,7 +4,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 import Details from './Steps/Details';
 import Invite from './Steps/Invite';
 import Times from './Steps/Times';
-
+import Header from '../Header/Header';
 
 class CreateEvent extends Component {
 
@@ -12,7 +12,7 @@ class CreateEvent extends Component {
     render() {
         return (
             <div>
-               
+               <Header/>
                 <Switch>
                     <Route component={Details} path='/event/details' />
                     <Route component={Invite} path='/event/invite' />

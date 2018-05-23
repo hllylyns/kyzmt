@@ -9,8 +9,8 @@ class Details extends Component {
         super();
 
         this.state = {
-            event_name: "",
-            event_description: "",
+            eventName: "",
+            description: "",
             location: "",
         }
         this.handleEventName = this.handleEventName.bind(this);
@@ -21,11 +21,11 @@ class Details extends Component {
     // componentDidMount()
 
     handleEventName(value) {
-        this.setState({ event_name: value });
+        this.setState({ eventName: value });
     }
 
     handleEventDesc(value) {
-        this.setState({ event_description: value });
+        this.setState({ description: value });
     }
 
     handleLocation(value) {
@@ -33,8 +33,11 @@ class Details extends Component {
     }
 
     handlecreateEvent(){
-        axios.post('/event').then() 
-        // write out axios post endpoint to create event. use createEvent from Reducer
+        // axios.post('/event', { /*what goes in here?*/}).then(results =>{
+        //     e.preventDefault();
+        //     this.props.createEvent(this.state./*??*/);
+        // }) 
+        // write out axios post endpoint to create event. use this.props.createEvent from Reducer
     }
 
     render() {
@@ -42,10 +45,10 @@ class Details extends Component {
             <div>
                 <h1>New Event</h1>
                 <p>Event Name</p>
-                <input value={this.state.event_name}
+                <input value={this.state.eventName}
                     onChange={(e) => this.handleEventName(e.target.value)} />
                 <p>Description</p>
-                <input value={this.state.event_description}
+                <input value={this.state.description}
                     onChange={(e) => this.handleEventDesc(e.target.value)} />
                 <p>Location</p>
                 <input value={this.state.location}
@@ -56,5 +59,13 @@ class Details extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    let {eventName, description, location} = state; 
+    return {
+        eventName: state.event.eventName,
+        discription: state.event.description,
+        location: state.event.location
+    }
+}
 
-export default connect(null, { createEvent })(Details);
+export default connect(mapStateToProps, { createEvent })(Details);

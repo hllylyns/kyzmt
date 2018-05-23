@@ -2,7 +2,11 @@ import axios from 'axios';
 
 const initialState = {
     user: {},
-    event:{}
+    event:{
+        eventName:"",
+        description:"",
+        location:""
+    }
 }
 
 const GET_USER = 'GET_USER';
@@ -18,10 +22,11 @@ export function getUser() {
     }
 }
 
-export function createEvent(){
+export function createEvent(eventName, description, location){
+    let event = {eventName, description, location}
     return{
-        // type: CREATE_EVENT,
-        // payload: event
+        type: CREATE_EVENT,
+        payload: event
     }
 }
 
@@ -31,8 +36,6 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {user: action.payload})
         case CREATE_EVENT:
             return Object.assign({}, state, {event: action.payload})
-        // case GET_USER + '_PENDING':
-        // case GET_USER + '_REJECTED':
         default:
           return state;
     }

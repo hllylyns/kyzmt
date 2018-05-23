@@ -68,7 +68,7 @@ passport.deserializeUser( (id, done) => {
 app.get('/login', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/dashboard' //not sure if /dashboard is the correct endpoint
+    successRedirect: 'http://localhost:3000/#/dashboard' 
 }))
 
 app.get('/auth/me', function(req, res) {
@@ -79,7 +79,9 @@ app.get('/auth/me', function(req, res) {
     }
 })
 
-
+app.post('/event', controller.createEvent);
+app.get('/dashboard', controller.readUserEvents);
+app.get('/dashboard', controller.readUserInvites);
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)
