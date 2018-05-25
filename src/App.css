@@ -7,19 +7,29 @@
   height: 100vh;
 }
 
-h1{
+h1 {
   font-weight: 300;
   text-transform: uppercase;
 }
-h2{
+
+h2 {
   font-weight: 200; 
 }
 
-.create{
+.create {
   margin-top: 4rem;
 }
 
-.dashbox{
+input {
+  padding: 10px 20px 10px 20px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  border-width: 0px;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.dashbox {
   width: 25vw;
   width: 25vh;
   padding: 2rem;
@@ -63,7 +73,7 @@ button {
   color: white;
   font-size: 16px;
   padding: 10px 20px 10px 20px;
-  border: solid white 2px;
+  border: solid white 1.4px;
   text-decoration: none;
   background: transparent;
   margin: 1.5rem;
@@ -72,6 +82,11 @@ button {
 button:hover {
   background: #BA728F;
   text-decoration: none;
+}
+
+.deletebox {
+  padding: 4px 10px 5px 10px;
+  text-transform: lowercase;
 }
 
 

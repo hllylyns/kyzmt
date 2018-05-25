@@ -4,7 +4,8 @@ const controller = require('./controller'),
       massive = require('massive'),
       session = require('express-session'),
       passport = require('passport'),
-      Auth0Strategy = require('passport-auth0');
+      Auth0Strategy = require('passport-auth0'),
+      bodyParser = require('body-parser');
 
 const {
     SERVER_PORT,
@@ -23,6 +24,8 @@ massive(CONNECTION_STRING).then((db)=>{
     console.log('connected to database');
     app.set('db',db);
 })
+
+app.use(bodyParser.json());
 
 app.use(session({
     secret: SESSION_SECRET,
@@ -81,7 +84,7 @@ app.get('/auth/me', function(req, res) {
 
 app.post('/event', controller.createEvent);
 app.get('/dashboard', controller.readUserEvents);
-app.get('/dashboard', controller.readUserInvites);
+
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)
