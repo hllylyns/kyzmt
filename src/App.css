@@ -29,13 +29,27 @@ input {
   color: #000000;
 }
 
-.dashbox {
-  width: 25vw;
-  width: 25vh;
-  padding: 2rem;
+.eventlist {
+  padding: .5rem;
+  /* height: 25vh; */
+  /* padding: 2rem;
   display: inline-flex;
-  justify-content: space-around;
+  justify-content: space-around; */
   background-color: #BA728F;
+  
+}
+
+.dashbox {
+  height: 50vh;
+  width: 20vw;
+  padding: 1rem;
+  margin: 2rem;
+  justify-content: space-around;
+  border-style: solid;
+  border-width: .15rem;
+  border-color: #532B72;
+  display: inline-block;
+  flex-wrap: wrap;
 }
 
 .App-logo {
@@ -87,6 +101,12 @@ button:hover {
 .deletebox {
   padding: 4px 10px 5px 10px;
   text-transform: lowercase;
+}
+
+ul {
+  list-style-type: none;
+  text-align: center;
+  -webkit-padding-start: 0px;
 }
 
 

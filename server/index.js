@@ -1,11 +1,11 @@
 require('dotenv').config();
 const controller = require('./controller'),
-      express = require('express'),
-      massive = require('massive'),
-      session = require('express-session'),
-      passport = require('passport'),
-      Auth0Strategy = require('passport-auth0'),
-      bodyParser = require('body-parser');
+    express = require('express'),
+    massive = require('massive'),
+    session = require('express-session'),
+    passport = require('passport'),
+    Auth0Strategy = require('passport-auth0'),
+    bodyParser = require('body-parser');
 
 const {
     SERVER_PORT,
@@ -19,10 +19,10 @@ const {
 
 const app = express();
 
-massive(CONNECTION_STRING).then((db)=>{
+massive(CONNECTION_STRING).then((db) => {
     // db.seed().then(()=>console.log('refresh db')); /// should be deleted when running final tests.
     console.log('connected to database');
-    app.set('db',db);
+    app.set('db', db);
 })
 
 app.use(bodyParser.json());
@@ -45,24 +45,24 @@ passport.use(new Auth0Strategy({
     scope: 'openid profile'
 }, (accessToken, refreshToken, extraParams, profile, done) => {
     let db = app.get('db');
-    let {displayName, picture, id} = profile;
+    let { displayName, picture, id } = profile;
     db.find_user([id]).then((foundUser) => {
         if (foundUser[0]) {
             done(null, foundUser[0].id)
         } else {
-            db.create_user([displayName, picture, id]).then( (user) => {
+            db.create_user([displayName, picture, id]).then((user) => {
                 done(null, user[0].id)
             })
         }
     })
 }))
 
-passport.serializeUser( (id, done) => {
+passport.serializeUser((id, done) => {
     done(null, id);
 
 })
 
-passport.deserializeUser( (id, done) => {
+passport.deserializeUser((id, done) => {
     app.get('db').find_session_user([id]).then((user) => {
         done(null, user[0])
     })
@@ -71,11 +71,11 @@ passport.deserializeUser( (id, done) => {
 app.get('/login', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/dashboard' 
+    successRedirect: 'http://localhost:3000/#/dashboard'
 }))
 
-app.get('/auth/me', function(req, res) {
-    if(req.user) {
+app.get('/auth/me', function (req, res) {
+    if (req.user) {
         res.status(200).send(req.user);
     } else {
         res.status(401).send('No access')
@@ -84,6 +84,8 @@ app.get('/auth/me', function(req, res) {
 
 app.post('/event', controller.createEvent);
 app.get('/dashboard', controller.readUserEvents);
+app.put('/edit-event', controller.editEvent);
+app.get('/event/results', controller.searchFriends); //is 'event' the correct endpoint? 
 
 
 app.listen(SERVER_PORT, () => {
