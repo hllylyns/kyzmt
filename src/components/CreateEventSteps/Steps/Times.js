@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { completeKyzmt, selectTime, timeInput, removeSelectedTime } from '../../../ducks/reducer';
 import { Link } from 'react-router-dom';
@@ -67,17 +66,18 @@ class Times extends Component {
                 <button onClick={this.handleSelectTime}>ADD TIME</button><br />
                 <h2>Selected Times</h2><br />
                 {times}
-                <Link to='/dashboard'> <button onClick={()=>this.props.completeKyzmt()}>COMPLETE KYZMT</button></Link>
+                <Link to='/dashboard'> <button onClick={()=>this.props.completeKyzmt(this.props.timesList, this.props.invitesList, this.props.event)}>COMPLETE KYZMT</button></Link>
             </div>
         )
     }
 }
 
 function mapStateToProps(state) {
-    let { timeInput, timesList, event } = state;
+    let { timeInput, timesList, invitesList, event } = state;
     return {
         timeInput,
         timesList,
+        invitesList,
         event
     }
 }

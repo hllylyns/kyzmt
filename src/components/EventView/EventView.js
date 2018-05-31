@@ -1,15 +1,25 @@
 import React, {Component} from 'react';
 import Header from '../Header/Header';
+import axios from 'axios';
 
 ///this component needs to be able to PUT things. do i need to set everything onto state so the user can 
 //manipulate it and send back? they could update state and then submit changes will do an axios.put
 
 class CreateEvent extends Component{
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
+
+        this.state={
+            event: {},
+            times: [],
+            isEditing: false
+        }
     }
     componentDidMount(){
-        //this will get all the invitees for each event (invitees table)
+        axios.get(`/event-view/${this.props.match.params.id}`).then(res => {
+            console.log(res.data)
+            this.setState({event: res.data[0]})
+        })//this will get all the invitees for each event (invitees table)
         //will also get their responses (responses table)
     }
 
@@ -24,10 +34,17 @@ class CreateEvent extends Component{
         //to the database. will use event details from state? or redux? 
     }
 
+    handleUpdateFn(){
+        axios.put(`/event-view/${this.props.match.params.id}`, {}).then(res=>{
+            this.setState({event: res.data[0]})
+        });
+    }
+
     handleCancelEvent(){
         //this will do a pop up to ask if you're sure you want to cancel
         //this will ask if you want to send a twilio to your invitees to let them know that it it canceled
-        //this will
+        //this will send twilio
+        //this will delete event info from database using event id. all db info connected with this id will be deleted
     }
 
     render(){
@@ -36,12 +53,14 @@ class CreateEvent extends Component{
             <div>
                 <Header/>
                 <div>
-                <h1>{this.props.eventName}</h1>
-                <h2>{/*a way to get the event details off of props*/}Event Details</h2>
-                <h2>{/*location*/}Location</h2>
+                <h1>{this.state.event.event_name}</h1>
+                <h2>{this.state.event.event_description}</h2>
+                <h2>{this.state.event.location}</h2>
+                </div>
                 <div>
-                <p>{/*times*/}Times</p> <button onClick= {this.handleFinalizeTime}>finalize time</button>
-                </div> <br/>
+                <h2>{/*times*/}Times</h2> <button onClick= {this.handleFinalizeTime}>finalize time</button>
+                </div> 
+                <div>
                 <button onClick ={this.handleEditEvent}>EDIT</button> 
                 <button onClick = {this.handleCancelEvent}>CANCEL KYZMT</button>
                 </div>

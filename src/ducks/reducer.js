@@ -43,15 +43,16 @@ export default function reducer(state = initialState, action) {
         case INVITEE_INPUT:
             return Object.assign({}, state, {inviteInput: action.payload})
         case SELECT_INVITEE:
-            return Object.assign({}, state, {invitesList: [...state.inviteList, action.payload]})
+            return Object.assign({}, state, {invitesList: [...state.invitesList, action.payload]})
         case REMOVE_SELECTED_INVITEE:
-            return Object.assign({}, state, {invitesList: action.payload})
+            return Object.assign({}, state, {invitesList: state.invitesList.filter((e, i)=> i!== action.payload)})
         case COMPLETE_KYZMT:
             return Object.assign({}, state, {event: action.payload})
         case CANCEL_CREATE:
             let resetEvent = Object.assign({}, state, {event: action.payload})
-            let timesList = Object.assign({}, state, {timesList: []})
-            return Object.assign({}, state, {event, timesList})
+            let resetTimesList = Object.assign({}, state, {timesList: initialState.timesList})
+            let resetInvitesList = Object.assign({}, state, {invitesList: initialState.invitesList})
+            return Object.assign({}, state, {resetEvent, resetTimesList, resetInvitesList})
         default:
           return state;
     }
@@ -114,30 +115,23 @@ export function selectInvitee(users){
         }
 }
 
-export function removeSelectedInvitee(newInvitesList){
+export function removeSelectedInvitee(i){
         return {
             type: REMOVE_SELECTED_INVITEE,
-            payload: newInvitesList
+            payload: i
         }
 }
 
 export function cancelCreate(){
-    let event = {
-        eventName:"",
-        description:"",
-        location:"", 
-        startTime:"",
-        duration:""
-    }
+    let reset = {};
     return {
         type: CANCEL_CREATE,
-        payload: event
+        payload: reset
     }
 }
 
-export function completeKyzmt(){
-    let {event, timesList, invitesList} = this.state;
-    axios.post('/event', {event, timesList, invitesList}).then(res=>{  
+export function completeKyzmt(timesList, invitesList, event){
+    axios.post('/event', {timesList, invitesList, event}).then(res=>{  
         console.log('event created! yay!').catch((error)=>{
             console.log(error)
             res.status(500).send('event NOT created');

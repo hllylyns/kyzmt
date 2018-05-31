@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import axios from 'axios';
 
@@ -64,7 +64,7 @@ class Dashboard extends Component {
                                 //                    />
                                 // <Route component={EventView} path='/event-view' />
                                 <div className="eventlist">
-                                    <li><Link to="/event-view"
+                                    <li><Link to={`/event-view/${event.id}`}
                                         key={event.id}
                                         eventName={event.event_name}
                                         description={event.event_description}
@@ -79,9 +79,6 @@ class Dashboard extends Component {
                     <h2>Confirmed</h2>
                     <ul>
                     <div className="eventlist">
-                    <li>Example</li>
-                    <li>Example</li>
-                    <li>Example</li>
                     {/* <p className="eventlist">{confirmed}</p> */}
                     </div>
                     </ul>

@@ -84,9 +84,9 @@ app.get('/auth/me', function (req, res) {
 
 app.post('/event', controller.createEvent);
 app.get('/dashboard', controller.readUserEvents);
-app.put('/edit-event', controller.editEvent);
+app.put('/event-view/:id', controller.editEvent);
 app.get('/event/results', controller.searchFriends); //is 'event' the correct endpoint? 
-
+app.get('/event-view/:id', controller.getEvent);
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)

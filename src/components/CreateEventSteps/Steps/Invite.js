@@ -26,18 +26,12 @@ class Invite extends Component {
         // this.props.selectInvitee()
     }
 
-    removeSelectedInvitee(e){
-        var newInvitesList = [...this.props.invitesList];
-        var index = newInvitesList.indexOf(e.target.value)
-        newInvitesList.splice(index, 1)
-        this.props.removeSelectedInvitee(newInvitesList)
-    }
 
     render() {
         let invitees = this.props.invitesList.map((element, i)=>{
             return (
-                <div>
-                    {element}<button className = "deletebox" onClick={e => this.removeSelectedInvitee(e)}>x</button>
+                <div key={i}>
+                    {element}<button className = "deletebox" onClick={() => this.props.removeSelectedInvitee(i)}>x</button>
                 </div>
             )
         })
