@@ -1,0 +1,1 @@
+select * from responses where events_id = $1;

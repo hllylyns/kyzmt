@@ -7,9 +7,6 @@ class Profile extends Component{
         this.props.getUser();
     }
     
-    bankBalance() {
-        return '$' + Math.floor((Math.random() + 1) * 1000) + '.00';
-    }
 
     render(){
         console.log(this.props)

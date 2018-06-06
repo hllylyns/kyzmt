@@ -15,7 +15,7 @@ id SERIAL PRIMARY KEY,
 event_name VARCHAR(200),
 event_description VARCHAR(900),
 location VARCHAR(500),
-time INT,
+time TIMESTAMPTZ,
 duration INTERVAL, 
 -- not sure if the decided duration is needed on the event table? probably yes. not sure how this will affect other coding done as of 5/23
 users_id INT REFERENCES users(id)
@@ -38,6 +38,7 @@ users_id INT REFERENCES users(id)
 CREATE TABLE IF NOT EXISTS responses (
 id SERIAL PRIMARY KEY, 
 users_id INT REFERENCES users(id),
+events_id INT REFERENCES events(id),
 event_times_id INT REFERENCES event_times(id)
 );
 

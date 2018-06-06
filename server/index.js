@@ -68,6 +68,18 @@ passport.deserializeUser((id, done) => {
     })
 })
 
+app.use((req, res, next) => {
+    req.user = {
+        id: 1,
+        name: 'Holly Lyons Florence',
+        email: null,
+        phone: null,
+        photo: 'https://lh3.googleusercontent.com/-uggqQdD8CJ4/AAAAAAAAAAI/AAAAAAAAAcA/Rp6OnSBONtc/photo.jpg',
+        auth_id: 'google-oauth2|114896173457977598129'
+    }
+    next()
+})
+
 app.get('/login', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
@@ -87,6 +99,12 @@ app.get('/dashboard', controller.readUserEvents);
 app.put('/event-view/:id', controller.editEvent);
 app.get('/event/results', controller.searchFriends); //is 'event' the correct endpoint? 
 app.get('/event-view/:id', controller.getEvent);
+app.get('/invite-view/:id', controller.getEventRsvp);
+app.delete('/event-view/:id', controller.deleteEvent);
+app.delete('/time-view/:id', controller.deleteATime);
+app.post('/event-view/:id', controller.addEventTime);
+app.delete('/delete-invitee/:id/:user', controller.deleteInvitee);
+app.put('/event-view/:id', controller.finalizeEventTime);
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)

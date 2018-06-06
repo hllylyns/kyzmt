@@ -8,8 +8,7 @@ class Dashboard extends Component {
         super();
 
         this.state = {
-            pending: [],
-            confirmed: [],
+            myEvents: [],
             rsvp: []
         }
     }
@@ -20,15 +19,16 @@ class Dashboard extends Component {
         axios.get('/dashboard').then(res => {
             console.log(res.data)
             // let eventNames = res.data.map(e => e.event_name)
-            this.setState({ pending: res.data.map((e, i) => e) })
-        })//if event/req.data property time is truthy, this.setState confirmed, if null/false, setState pending
+            this.setState({ myEvents: res.data.map((e, i) => e) })
+        })//if event/req.data property time is truthy, this.setState confirmed, if null/false, setState myEvents
         //nest .then axios.get to retrieve all invitations (events from intitees table where user id is current user id)
+        //if user_id_seq is equal not current user, display in rsvp as a link to /invite-view/params 
         //
     }
 
     render() {
-        console.log(this.state.pending[0])
-        // let pending = this.state.pending.map((element, i) => {
+        console.log(this.state.myEvents[0])
+        // let myEvents = this.state.myEvents.map((element, i) => {
         //     return (
         //         <ul>
         //         <div key={i}>
@@ -51,11 +51,10 @@ class Dashboard extends Component {
         return (
             <div>
                 <Header />
-                <Link to='/event/details'> <button className="create">CREATE KYZMT</button></Link><br />
                 <div className="dashbox">
-                    <h2>Pending</h2>
+                    <h2>myEvents</h2>
                     <ul>
-                        {this.state.pending.map((event, i) => {
+                        {this.state.myEvents.map((event, i) => {
                             return (
                                 // <ProvidesEventInfo key={event.id}
                                 //                    eventName={event.event_name}
@@ -64,11 +63,8 @@ class Dashboard extends Component {
                                 //                    />
                                 // <Route component={EventView} path='/event-view' />
                                 <div className="eventlist">
-                                    <li><Link to={`/event-view/${event.id}`}
-                                        key={event.id}
-                                        eventName={event.event_name}
-                                        description={event.event_description}
-                                        location={event.location}>{event.event_name}</Link>
+                                    <li><Link to={`/event-view/${event.id}`} className="links"
+                                        key={event.id}>{event.event_name} </Link>
                                     </li>
                                 </div>
                             )
@@ -76,22 +72,15 @@ class Dashboard extends Component {
                     </ul>
                 </div>
                 <div className="dashbox">
-                    <h2>Confirmed</h2>
-                    <ul>
-                    <div className="eventlist">
-                    {/* <p className="eventlist">{confirmed}</p> */}
-                    </div>
-                    </ul>
-                </div>
-                <div className="dashbox">
                     <h2>RSVP</h2>
                     <ul>
-                    <div className="eventlist">
-                    <li></li>
-                    {/* <p className="eventlist">{rsvp}</p> */}
-                    </div>
+                        <div className="eventlist">
+                            <li></li>
+                            {/* <p className="eventlist">{rsvp}</p> */}
+                        </div>
                     </ul>
-                </div>
+                </div><br />
+                <Link to='/event/details'> <button className="create">CREATE KYZMT</button></Link>
 
             </div>
         )

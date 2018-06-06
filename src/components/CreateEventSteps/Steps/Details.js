@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
+    // handleCheckName(){
+    //     console.log(this.props.eventName)
+    // }
+
     render() {
         return (
             <div>
@@ -18,7 +22,7 @@ class Details extends Component {
                 <p>Location</p>
                 <input value={this.props.location}
                     onChange={(e) => this.props.createEvent("location", e.target.value)} /> <br/>
-               <Link to = '/event/invite'> <button>NEXT</button></Link>
+               <Link to = '/event/invite'> <button onClick={this.handleCheckName}>NEXT</button></Link>
             </div>
         )
     }

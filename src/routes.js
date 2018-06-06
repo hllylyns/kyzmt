@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard/Dashboard';
 import CreateEvent from './components/CreateEventSteps/CreateEvent';
 import Profile from './components/Profile/Profile';
 import EventView from './components/EventView/EventView';
-// import InviteView from './components/InviteView/InviteView';
+import InviteView from './components/InviteView/InviteView';
 
 export default (
     <Switch>
@@ -14,6 +14,6 @@ export default (
         <Route path='/event' component={CreateEvent} />
         <Route path='/event-view/:id' component={EventView} />
         <Route path='/profile' component={Profile} />
-        {/* <Route path='/invite-view' component={InviteView} /> */}
+        <Route path='/invite-view/:id' component={InviteView} />
     </Switch>
 )

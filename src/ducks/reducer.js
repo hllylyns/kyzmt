@@ -49,7 +49,7 @@ export default function reducer(state = initialState, action) {
         case COMPLETE_KYZMT:
             return Object.assign({}, state, {event: action.payload})
         case CANCEL_CREATE:
-            let resetEvent = Object.assign({}, state, {event: action.payload})
+            let resetEvent = Object.assign({}, state, {event: initialState.event})
             let resetTimesList = Object.assign({}, state, {timesList: initialState.timesList})
             let resetInvitesList = Object.assign({}, state, {invitesList: initialState.invitesList})
             return Object.assign({}, state, {resetEvent, resetTimesList, resetInvitesList})
@@ -108,10 +108,10 @@ export function inviteInput(user){
     }
 }
 
-export function selectInvitee(users){
+export function selectInvitee(user){
         return{
             type: SELECT_INVITEE,
-            payload: users
+            payload: user
         }
 }
 
@@ -131,12 +131,14 @@ export function cancelCreate(){
 }
 
 export function completeKyzmt(timesList, invitesList, event){
+    console.log(invitesList)
     axios.post('/event', {timesList, invitesList, event}).then(res=>{  
-        console.log('event created! yay!').catch((error)=>{
-            console.log(error)
-            res.status(500).send('event NOT created');
+        console.log('event created! yay!')
         })
-    })
+        // .catch((error)=>{
+        //     console.log(error)
+        //     res.status(500).send('event NOT created');
+    // })
 
     let resetEvent = {
         eventName:"",
@@ -145,6 +147,9 @@ export function completeKyzmt(timesList, invitesList, event){
         startTime:"",
         duration:""
     }
+
+    //need to reset invites and times lists
+
     return {
         type: COMPLETE_KYZMT,
         payload: resetEvent
