@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
-    // handleCheckName(){
-    //     console.log(this.props.eventName)
-    // }
+    handleCheckName(){
+        console.log(this.props.eventName)
+    }
 
     render() {
         return (

@@ -3,7 +3,7 @@ import axios from 'axios';
 import UserSearchSuggestions from './UserSearchSuggestions';
 // import 'react-select/dist/react-select.css';
 // import Select from 'react-select';
-import Downshift from 'downshift';
+// import Downshift from 'downshift';
 
 
 class UserSearch extends Component {

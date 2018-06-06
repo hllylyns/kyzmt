@@ -59,7 +59,7 @@ class InviteView extends Component {
             return (
 
                 <div key={i}>
-                    <button onClick={() => this.handleSelectTime(e.id)} className="deletebox">select</button>{displayTime}
+                    <input type="checkbox" name={displayTime} value={e} onChange={this.handleClick}/>{displayTime}<br/>
                 </div>
             )
         })

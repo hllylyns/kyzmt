@@ -91,11 +91,6 @@ module.exports = {
             })
     },
 
-
-
-
-
-
     // readEvents finds all events CREATED by the user, .then all the events the user is invited to 
     readUserEvents: (req, res, next) => {
         const dbInstance = req.app.get('db');
@@ -106,6 +101,15 @@ module.exports = {
             // .then(([id])=> dbInstance.invites_to_user()) ///invites to user will have to use a join to get event info from event id
             .then(events => res.status(200).send(events))
             .catch(() => res.status(500).send('events NOT found'));
+    },
+
+    readUserInvites:( req, res, next)=>{
+        const dbInstance = req.app.get('db');
+        const {id} = req.user
+
+        dbInstance.events_by_invitee([id])
+        .then(events=>res.status(200).send(events))
+        .catch(()=> res.status(500).send('invites not found'));
     },
 
 

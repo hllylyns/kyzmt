@@ -3,13 +3,13 @@ import { selectInvitee } from '../../../ducks/reducer';
 import { connect } from 'react-redux';
 
 class UserSearchSuggestions extends Component {
-  constructor(){
-    super();
+  // constructor(){
+  //   super();
 
-    // this.state = {
+  //   // this.state = {
         
-    // }
-  }
+  //   // }
+  // }
 
 
   render() {

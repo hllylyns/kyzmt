@@ -96,6 +96,7 @@ app.get('/auth/me', function (req, res) {
 
 app.post('/event', controller.createEvent);
 app.get('/dashboard', controller.readUserEvents);
+app.get('/invites', controller.readUserInvites)
 app.put('/event-view/:id', controller.editEvent);
 app.get('/event/results', controller.searchFriends); //is 'event' the correct endpoint? 
 app.get('/event-view/:id', controller.getEvent);
