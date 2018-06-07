@@ -112,8 +112,27 @@ module.exports = {
         .catch(()=> res.status(500).send('invites not found'));
     },
 
+    deleteRsvp:(req, res, next)=>{
+        const dbInstance = req.app.get('db');
+        const {id} = req.user;
+        const {events_id, start_time} = req.params;
+        
 
+        dbInstance.delete_response([id, events_id, start_time])
+        .then(()=>res.status(200).send('rsvp deleted'))
+        .catch(()=> res.status(500).send('delete fail'));
+    },
+    
+    addRsvp:(req, res, next)=>{
+        const dbInstance = req.app.get('db');
+        const {id} = req.user;
+        const {events_id} = req.params;
+        const {id:event_times_id} = req.body
 
+        dbInstance.add_response([id, events_id, event_times_id])
+        .then(()=>res.status(200).send('rsvp posted'))
+        .catch(()=> res.status(500).send('rsvp fail'));
+    },
 
     editEvent: (req, res, next) => {
         const dbInstance = req.app.get('db');

@@ -39,12 +39,12 @@ class Dashboard extends Component {
             <div>
                 <Header />
                 <div className="dashbox">
-                    <h2>myEvents</h2>
+                    {/* <h2>myEvents</h2> */}
                     <ul>
                         {this.state.myEvents.map((event, i) => {
                             return (
                                 <div className="eventlist">
-                                    <li><Link to={`/event-view/${event.id}`} className="links"
+                                    <li><Link to={`/event-view/${event.id}`} className="dashlink"
                                         key={event.id}>{event.event_name} </Link>
                                     </li>
                                 </div>
@@ -53,12 +53,12 @@ class Dashboard extends Component {
                     </ul>
                 </div>
                 <div className="dashbox">
-                    <h2>RSVP</h2>
+                    {/* <h2>RSVP</h2> */}
                     <ul>
                         {this.state.myInvites.map((event, i) => {
                             return (
                                 <div className="eventlist">
-                                    <li><Link to={`/invite-view/${event.id}`} className="links"
+                                    <li><Link to={`/invite-view/${event.id}`} className="dashlink"
                                         key={event.id}>{event.event_name} </Link>
                                     </li>
                                 </div>

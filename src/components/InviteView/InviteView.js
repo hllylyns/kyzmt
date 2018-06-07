@@ -18,6 +18,7 @@ class InviteView extends Component {
     }
 
     componentDidMount() {
+    
         axios.get(`/invite-view/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data)
@@ -30,68 +31,86 @@ class InviteView extends Component {
                     invitees: res.data.users
                 })
                 console.log(this.state)
-        
+
             })
-            
-        // axios.get(`/event-times/${this.props.match.params}`).then(res=>{
-        //     console.log(res.data) //this will get the event times
-        // })
-        //axios.get to retrieve other invitees to display
 
-        //the axios.get and controller for event view and invite view can be the same
+        // axios.get to get all of the responses for this event to display checked boxes (including
+    //      responses from other users)
+        // maybe axios.get puts responses on a responses array on state, then when mapping in eventTimes, it checks
+        //to see if the time already exists on the responses array , if it does exist then 
+        //"clicked" prop on input is true, otherwise, false. Some wires will probs get crossed
+        //in attempting to do this. Should get the help of Tommy. 
+        ///idk if this will work - but perhaps you just put on state when clicked rather than onMount?
+        //will these clicked times stay indefinitely? 
+    }
 
-        // axios.post(`/event-responses/${this.props.match.params}`).then(res=>{
-        //     console.log(res.data)
-        // })//this will create all of the responses/rsvps
-
-        ///axios.delete to delete responses
+    handleClick(event, time){
+        console.log(event.target.checked);
+        console.log(time)
+        let {id, start_time, events_id} = time;
+        console.log(id, events_id)
+        if(event.target.checked === true){
+            axios.post(`/invite-view/${events_id}/${id}`, {start_time}).then(res=>{
+                console.log('rsvp sent')
+                this.componentDidMount()})
+        }else if (event.target.checked === false){
+            axios.delete(`/invite-view/${time.id}/${id}`).then(res=>{
+                console.log('rsvp deleted')
+                this.componentDidMount()})
+        }
 
     }
 
 
     render() {
         let eventTimes = this.state.times.map((e, i) => {
-            console.log(e.id)
+            console.log(e)
             let newTime = new Date(e.start_time)
             let day = newTime.toDateString()
             let timeRead = newTime.toLocaleTimeString()
-            let displayTime = day + ' ' + timeRead
+            let displayTime = timeRead + ' ' + day
             return (
 
                 <div key={i}>
-                    <input type="checkbox" name={displayTime} value={e} onChange={this.handleClick}/>{displayTime}<br/>
+                    <label className="container">
+                    {displayTime}
+                    <input type="checkbox" name={displayTime} value={e} onChange={(event)=>this.handleClick(event, e)}/>
+                <span className="checkmark"></span>
+                </label>
                 </div>
-            )
-        })
-
+                    )
+                })
+        
         let invitees = this.state.invitees.map((e,i)=>{
-            return(
+            return (
                 <div key={i} className="circular--landscape">
-                <img src={e.photo} alt={e.name}/>
-                <p>{e.name}</p>
-                </div>
-            )
-        })
-
-        return (
+                        <img src={e.photo} alt={e.name} />
+                        <p>{e.name}</p>
+                    </div>
+                    )
+                })
+        
+                return (
             <div>
-                <Header />
-                <div>
-                    <h1>{this.state.eventName}</h1>
-                    <p>{this.state.eventDescription}</p>
-                    <h2>{this.state.eventLocation}</h2>
-                </div>
-                <div>
-                {invitees}
-                {eventTimes}
-                </div>
-                <div>
-                    <button onClick={this.handleSubmitResponse}>SUBMIT RSVP</button>
-                    <button /*onClick={this.handleUpdateResponse}*/>CHANGE RSVP</button>
-                </div>
-            </div>
-        )
-    }
-}
-
-export default InviteView;
+                        <Header />
+                        <div>
+                            <h1>{this.state.eventName}</h1>
+                            <p>{this.state.eventDescription}</p>
+                            <h2>{this.state.eventLocation}</h2>
+                        </div>
+                        <div>
+                            {invitees}
+                        </div>
+                        <div  className= "rsvpbox">
+                            {eventTimes}
+                        </div>
+                        {/* <div>
+                            <button onClick={this.handleSubmitResponse}>SUBMIT RSVP</button>
+                            <button onClick={this.handleUpdateResponse}>CHANGE RSVP</button>
+                        </div> */}
+                    </div>
+                    )
+                }
+            }
+            
+            export default InviteView;

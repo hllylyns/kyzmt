@@ -20,6 +20,12 @@ h2 {
   margin-top: 4rem;
 }
 
+.dashlink {
+  font-size: 1.25rem;
+  color: white;
+  text-decoration: none;
+}
+
 input {
   padding: 10px 20px 10px 20px;
   font-size: 16px;
@@ -53,6 +59,12 @@ input {
   background-color: #BA728F;
   flex-wrap: wrap;
   display: inline-flex;
+}
+
+.rsvpbox{
+  width:60vw;
+  display: inline-block;
+  padding: 1rem;
 }
 
 .App-logo {
@@ -175,6 +187,87 @@ ul {
   width: auto;
   height: 100%;
   /* margin-left: -50px; */
+}
+.profilephoto {
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: .5rem;
+}
+
+.profilephoto img {
+  width: auto;
+  height: 100%;
+  /* margin-left: -50px; */
+}
+
+
+.container {
+  display: flex;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #3CCACE;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 @keyframes App-logo-spin {

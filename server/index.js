@@ -14,10 +14,14 @@ const {
     CLIENT_ID,
     CLIENT_SECRET,
     CALLBACK_URL,
-    CONNECTION_STRING
+    CONNECTION_STRING, 
+    REACT_APP_LOGIN, 
+    SUCCESS_REDIRECT
 } = process.env;
 
 const app = express();
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 massive(CONNECTION_STRING).then((db) => {
     // db.seed().then(()=>console.log('refresh db')); /// should be deleted when running final tests.
@@ -83,7 +87,7 @@ app.use((req, res, next) => {
 app.get('/login', passport.authenticate('auth0'));
 
 app.get('/auth/callback', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/dashboard'
+    successRedirect: SUCCESS_REDIRECT
 }))
 
 app.get('/auth/me', function (req, res) {
@@ -106,6 +110,9 @@ app.delete('/time-view/:id', controller.deleteATime);
 app.post('/event-view/:id', controller.addEventTime);
 app.delete('/delete-invitee/:id/:user', controller.deleteInvitee);
 app.put('/event-view/:id', controller.finalizeEventTime);
+// app.delete('/invite-view/:id', controller.deleteRsvp);
+// app.post('/invite-view/:id', controller.addRsvp)
+
 
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)
