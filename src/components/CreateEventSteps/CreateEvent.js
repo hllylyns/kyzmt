@@ -11,9 +11,8 @@ import {connect} from 'react-redux';
 class CreateEvent extends Component {
 
     handleCancelCreate(){
-        //add a pop up that asks if the person is sure they want to cancel
-        //ternary, if no - do nothing, if yes - reset event and timesList on redux state to undefined
         this.props.cancelCreate();//do I need to invoke this to get it to worK? 
+        ///then alert/toast "your event has been deleted"
     }
 
     render() {

@@ -5,7 +5,13 @@ import { Link } from 'react-router-dom';
 
 class Details extends Component {
 
+
     handleCheckName(){
+        if(!this.props.eventName){
+            alert('Event Name Required')
+        }else{
+            /// browser history? need help with this.
+        }
         console.log(this.props.eventName)
     }
 
@@ -22,7 +28,7 @@ class Details extends Component {
                 <p>Location</p>
                 <input value={this.props.location}
                     onChange={(e) => this.props.createEvent("location", e.target.value)} /> <br/>
-               <Link to = '/event/invite'> <button onClick={this.handleCheckName}>NEXT</button></Link>
+               <button onClick={()=>this.handleCheckName(this.props.eventName)}>NEXT</button>
             </div>
         )
     }

@@ -29,6 +29,8 @@ class UserSearch extends Component {
                     //     if (this.state.query.length % 2 ===0){
                     //         this.getInfo()
                     //     }
+                }else if (!this.state.query){
+                    this.setState({results:[]})
                 }
             }
         )
@@ -52,8 +54,8 @@ class UserSearch extends Component {
         
         ///find a set up that already does a drop down and select option for you
         return (
-            <div>
-                <input
+            <div className="searchbox">
+                <input className = "friendfinder"
                 placeholder="finding friends"
                 onChange={this.handleInputChange}
                 />

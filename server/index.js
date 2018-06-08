@@ -110,8 +110,8 @@ app.delete('/time-view/:id', controller.deleteATime);
 app.post('/event-view/:id', controller.addEventTime);
 app.delete('/delete-invitee/:id/:user', controller.deleteInvitee);
 app.put('/event-view/:id', controller.finalizeEventTime);
-// app.delete('/invite-view/:id', controller.deleteRsvp);
-// app.post('/invite-view/:id', controller.addRsvp)
+app.delete('/invite-view/:events_id/:id', controller.deleteRsvp);
+app.post('/invite-view/:events_id', controller.addRsvp)
 
 
 app.listen(SERVER_PORT, () => {

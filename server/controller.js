@@ -35,6 +35,7 @@ module.exports = {
     getEventRsvp: (req, res, next) => {
         const dbInstance = req.app.get('db');
         const { id } = req.params;
+        const {id:user} = req.user;
 
         dbInstance.get_event([id])
             .then(([event]) => {
@@ -47,7 +48,12 @@ module.exports = {
                                 dbInstance.join_invitees_on_events([id])
                                     .then((users) => {
                                         event.users = users
-                                        res.status(200).send(event)
+                                        dbInstance.responses_by_user([id, user])
+                                        .then((responses)=>{
+                                            event.responses = responses
+                                            res.status(200).send(event)
+                                        })
+                                        
                                     })
                             })
                     })
@@ -115,10 +121,10 @@ module.exports = {
     deleteRsvp:(req, res, next)=>{
         const dbInstance = req.app.get('db');
         const {id} = req.user;
-        const {events_id, start_time} = req.params;
-        
+        const {events_id} = req.params;
+        const {id:event_times_id} = req.params;
 
-        dbInstance.delete_response([id, events_id, start_time])
+        dbInstance.delete_response([id, events_id, event_times_id])
         .then(()=>res.status(200).send('rsvp deleted'))
         .catch(()=> res.status(500).send('delete fail'));
     },

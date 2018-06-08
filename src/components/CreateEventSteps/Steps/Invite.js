@@ -22,7 +22,8 @@ class Invite extends Component {
             )
         })
         return (
-            <div>
+            <div className="steps_outer">
+            <div className="steps_inner">
                 <h1>Invite Friends </h1>
                 <UserSearch />
                 {/* <input value={this.state.friend}
@@ -31,6 +32,7 @@ class Invite extends Component {
                 {invitees}
                 <Link to='/event/details'><button>PREV</button></Link>
                 <Link to='/event/times'><button>NEXT</button></Link>
+            </div>
             </div>
         );
     }

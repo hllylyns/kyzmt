@@ -12,13 +12,14 @@ class InviteView extends Component {
             eventLocation: '',
             times: [],
             invitees: [],
+            previousResponses: [],
             params: 0
         }
 
     }
 
     componentDidMount() {
-    
+
         axios.get(`/invite-view/${this.props.match.params.id}`)
             .then(res => {
                 console.log(res.data)
@@ -28,14 +29,15 @@ class InviteView extends Component {
                     eventLocation: res.data.location,
                     params: this.props.match.params.id,
                     times: res.data.times,
-                    invitees: res.data.users
+                    invitees: res.data.users,
+                    previousResponses: res.data.responses
                 })
                 console.log(this.state)
 
             })
 
         // axios.get to get all of the responses for this event to display checked boxes (including
-    //      responses from other users)
+        //      responses from other users)
         // maybe axios.get puts responses on a responses array on state, then when mapping in eventTimes, it checks
         //to see if the time already exists on the responses array , if it does exist then 
         //"clicked" prop on input is true, otherwise, false. Some wires will probs get crossed
@@ -44,73 +46,89 @@ class InviteView extends Component {
         //will these clicked times stay indefinitely? 
     }
 
-    handleClick(event, time){
+    handleClick(event, time) {
         console.log(event.target.checked);
         console.log(time)
-        let {id, start_time, events_id} = time;
+        let { id, events_id } = time;
         console.log(id, events_id)
-        if(event.target.checked === true){
-            axios.post(`/invite-view/${events_id}/${id}`, {start_time}).then(res=>{
+        if (event.target.checked === true) {
+            axios.post(`/invite-view/${events_id}`, { id }).then(res => {
                 console.log('rsvp sent')
-                this.componentDidMount()})
-        }else if (event.target.checked === false){
-            axios.delete(`/invite-view/${time.id}/${id}`).then(res=>{
+            })
+        } else if (event.target.checked === false) {
+            axios.delete(`/invite-view/${events_id}/${id}`).then(res => {
                 console.log('rsvp deleted')
-                this.componentDidMount()})
+            })
         }
-
+        this.componentDidMount()
     }
 
+    renderResponses() {
 
-    render() {
         let eventTimes = this.state.times.map((e, i) => {
             console.log(e)
             let newTime = new Date(e.start_time)
             let day = newTime.toDateString()
             let timeRead = newTime.toLocaleTimeString()
             let displayTime = timeRead + ' ' + day
+            let saved = false;
+            this.state.previousResponses.map(r => {
+                console.log(r.event_times_id)
+                if (r.event_times_id === e.id) {
+                    saved = true;
+                }
+            })
+
             return (
 
                 <div key={i}>
                     <label className="container">
-                    {displayTime}
-                    <input type="checkbox" name={displayTime} value={e} onChange={(event)=>this.handleClick(event, e)}/>
-                <span className="checkmark"></span>
-                </label>
+                        {displayTime}
+                        <input type="checkbox" checked={saved} name={displayTime} value={e} onChange={(event) => this.handleClick(event, e)} />
+                        <span className="checkmark"></span>
+                    </label>
                 </div>
-                    )
-                })
-        
-        let invitees = this.state.invitees.map((e,i)=>{
+            )
+        })
+
+        return eventTimes;
+    }
+
+
+    render() {
+
+
+
+        let invitees = this.state.invitees.map((e, i) => {
             return (
                 <div key={i} className="circular--landscape">
-                        <img src={e.photo} alt={e.name} />
-                        <p>{e.name}</p>
-                    </div>
-                    )
-                })
-        
-                return (
+                    <img src={e.photo} alt={e.name} />
+                    <p>{e.name}</p>
+                </div>
+            )
+        })
+
+        return (
             <div>
-                        <Header />
-                        <div>
-                            <h1>{this.state.eventName}</h1>
-                            <p>{this.state.eventDescription}</p>
-                            <h2>{this.state.eventLocation}</h2>
-                        </div>
-                        <div>
-                            {invitees}
-                        </div>
-                        <div  className= "rsvpbox">
-                            {eventTimes}
-                        </div>
-                        {/* <div>
+                <Header />
+                <div>
+                    <h1>{this.state.eventName}</h1>
+                    <p>{this.state.eventDescription}</p>
+                    <h2>{this.state.eventLocation}</h2>
+                </div>
+                <div>
+                    {invitees}
+                </div>
+                <div className="rsvpbox">
+                    {this.renderResponses()}
+                </div>
+                {/* <div>
                             <button onClick={this.handleSubmitResponse}>SUBMIT RSVP</button>
                             <button onClick={this.handleUpdateResponse}>CHANGE RSVP</button>
                         </div> */}
-                    </div>
-                    )
-                }
-            }
-            
-            export default InviteView;
+            </div>
+        )
+    }
+}
+
+export default InviteView;

@@ -33,14 +33,15 @@ class CreateEvent extends Component {
     componentDidMount() {
         axios.get(`/event-view/${this.props.match.params.id}`)
             .then(res => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.setState({
                     eventName: res.data.event_name,
                     eventDescription: res.data.event_description,
                     eventLocation: res.data.location,
                     times: res.data.times,
                     invitees: res.data.users,
-                    params: this.props.match.params.id
+                    params: this.props.match.params.id, 
+                    responses: res.data.responses
                 })
                 console.log(this.state)
 
@@ -132,17 +133,46 @@ class CreateEvent extends Component {
 
 
     render() {
+        
         let eventTimes = this.state.times.map((e, i) => {
             console.log(e.id)
             let newTime = new Date(e.start_time)
             let day = newTime.toDateString()
             let timeRead = newTime.toLocaleTimeString()
             let displayTime = day + ' ' + timeRead
+            let responseArray = this.state.responses.filter((r, j)=>{
+                if (r.event_times_id === e.id){
+                    return r.users_id;
+                }
+            })
+            console.log(responseArray)
+            let photos = responseArray.map((res, i)=>{
+                if  (e.id === res.event_times_id){
+                    for (let j=0; j<this.state.invitees.length; j++){
+                        if (this.state.invitees[j].users_id === res.users_id){
+                            console.log(this.state.invitees[j].photo)
+                            return this.state.invitees[j].photo
+                        }
+                    }
+                }
+            })
+            console.log(photos)
+
+            let mappedPhotos = photos.map(photo=>{
+                return (
+                    <div className="circular--landscapesmall">
+                    <img src={photo}/>
+                    </div>
+                )
+            })
+
             return (
 
                 <div key={i}>
-                    <button onClick={() => this.handleDeleteTime(e.id)} className="deletebox">x</button>{displayTime}
+                    <button onClick={() => this.handleDeleteTime(e.id)} className="deletebox">x</button>
                     <button onClick={()=>this.handleFinalizeTime(e.start_time)} className="deletebox">finalize</button>
+                    {displayTime}
+                    {mappedPhotos}
                 </div>
             )
         })
@@ -156,6 +186,7 @@ class CreateEvent extends Component {
                 </div>
             )
         })
+
         return (
             <div>
                 <Header />

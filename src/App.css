@@ -4,7 +4,7 @@
   font-family: 'Montserrat', sans-serif;
   color: white;
   background: linear-gradient(to right, #532B72, #F5A3AD);
-  height: 100vh;
+  height: 100%;
 }
 
 h1 {
@@ -182,8 +182,22 @@ ul {
   border-radius: 50%;
   margin: .5rem;
 }
+.circular--landscapesmall {
+  display: inline-block;
+  position: relative;
+  width: 45px;
+  height: 45px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: .5rem;
+}
 
 .circular--landscape img {
+  width: auto;
+  height: 100%;
+  /* margin-left: -50px; */
+}
+.circular--landscapesmall img {
   width: auto;
   height: 100%;
   /* margin-left: -50px; */
@@ -269,6 +283,44 @@ ul {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.searchbar {
+  padding: 10px 20px 10px 20px;
+  height: 39px;
+  width: 226px;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0rem;
+  /* position: fixed; */
+}
+
+.searchbox {
+  display:inline-block;
+ 
+}
+
+/* .steps_outer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  /* background-color: rgba(0,0,0, 0.5); */
+/* } */
+/* .steps_inner {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: 15%;
+  bottom: 15%;
+  margin: auto;
+  background:  #532B72;
+  padding: .15rem;
+} */
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
