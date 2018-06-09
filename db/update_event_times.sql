@@ -1,3 +1,3 @@
 update events
-set time = $2
+set time_stamp = $2
 where id = $1;

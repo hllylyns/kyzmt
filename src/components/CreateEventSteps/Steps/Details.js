@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 class Details extends Component {
 
 
-    handleCheckName(){
+    handleCheckName= (e)=>{
         if(!this.props.eventName){
             alert('Event Name Required')
+            e.preventDefault();
         }else{
             /// browser history? need help with this.
         }
@@ -16,6 +17,9 @@ class Details extends Component {
     }
 
     render() {
+    
+
+
         return (
             <div>
                 <h1>New Event</h1>
@@ -28,7 +32,7 @@ class Details extends Component {
                 <p>Location</p>
                 <input value={this.props.location}
                     onChange={(e) => this.props.createEvent("location", e.target.value)} /> <br/>
-               <button onClick={()=>this.handleCheckName(this.props.eventName)}>NEXT</button>
+              <Link to='/event/invite'> <button onClick={this.handleCheckName}>NEXT</button></Link>
             </div>
         )
     }

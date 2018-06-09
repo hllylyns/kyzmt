@@ -5,8 +5,10 @@ const controller = require('./controller'),
     session = require('express-session'),
     passport = require('passport'),
     Auth0Strategy = require('passport-auth0'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    twilio = require('twilio');
 
+//.env
 const {
     SERVER_PORT,
     SESSION_SECRET,
@@ -14,15 +16,19 @@ const {
     CLIENT_ID,
     CLIENT_SECRET,
     CALLBACK_URL,
-    CONNECTION_STRING, 
-    REACT_APP_LOGIN, 
-    SUCCESS_REDIRECT
+    CONNECTION_STRING,
+    REACT_APP_LOGIN,
+    SUCCESS_REDIRECT,
+    TWILIO_ACCOUNT_SID,
+    TWILIO_AUTH_TOKEN,
+    MY_PHONE_NUMBER,
+    TWILIO_PHONE
 } = process.env;
 
+//middleware - express, massive, bodyparser
 const app = express();
 
-app.use( express.static( `${__dirname}/../build` ) );
-
+app.use(express.static(`${__dirname}/../build`));
 massive(CONNECTION_STRING).then((db) => {
     // db.seed().then(()=>console.log('refresh db')); /// should be deleted when running final tests.
     console.log('connected to database');
@@ -41,6 +47,7 @@ app.use(passport.initialize());
 
 app.use(passport.session());
 
+//middleware - Auth0
 passport.use(new Auth0Strategy({
     domain: DOMAIN,
     clientID: CLIENT_ID,
@@ -98,6 +105,13 @@ app.get('/auth/me', function (req, res) {
     }
 })
 
+//initialize twilio
+const accountSid = TWILIO_ACCOUNT_SID,
+    authToken = TWILIO_AUTH_TOKEN,
+    client = new twilio (accountSid, authToken);
+
+
+//endpoints
 app.post('/event', controller.createEvent);
 app.get('/dashboard', controller.readUserEvents);
 app.get('/invites', controller.readUserInvites)
@@ -109,11 +123,26 @@ app.delete('/event-view/:id', controller.deleteEvent);
 app.delete('/time-view/:id', controller.deleteATime);
 app.post('/event-view/:id', controller.addEventTime);
 app.delete('/delete-invitee/:id/:user', controller.deleteInvitee);
-app.put('/event-view/:id', controller.finalizeEventTime);
+app.put('/event-finalize/:id', controller.finalizeEventTime);
 app.delete('/invite-view/:events_id/:id', controller.deleteRsvp);
-app.post('/invite-view/:events_id', controller.addRsvp)
+app.post('/invite-view/:events_id', controller.addRsvp);
 
+//twilio endpoints
+app.get('/testtwilio', function (req, res) {
+    client.messages
+        .create({
+            to: MY_PHONE_NUMBER,
+            from: TWILIO_PHONE,
+            body: 'These are not the drones you are looking for'
+        })
+        .then((message) => console.log(message.sid))
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send('twilio not working')
+        })
+})
 
+//port
 app.listen(SERVER_PORT, () => {
     console.log(`Listening on port: ${SERVER_PORT}`)
 })

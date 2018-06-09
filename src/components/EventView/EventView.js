@@ -33,7 +33,7 @@ class CreateEvent extends Component {
     componentDidMount() {
         axios.get(`/event-view/${this.props.match.params.id}`)
             .then(res => {
-                // console.log(res.data)
+                console.log(res.data)
                 this.setState({
                     eventName: res.data.event_name,
                     eventDescription: res.data.event_description,
@@ -41,7 +41,8 @@ class CreateEvent extends Component {
                     times: res.data.times,
                     invitees: res.data.users,
                     params: this.props.match.params.id, 
-                    responses: res.data.responses
+                    responses: res.data.responses, 
+                    finalizedTime: res.data.time_stamp
                 })
                 console.log(this.state)
 
@@ -102,19 +103,25 @@ class CreateEvent extends Component {
 
     handleFinalizeTime(time) {
         //alert - do you want to choose this time and notify your guests?
-        axios.put(`/event-view/${this.props.match.params.id}`, {time}).then(res=>{
+        axios.put(`/event-finalize/${this.props.match.params.id}`, {time}).then(res=>{
             console.log('event time set')
             this.componentDidMount()
         })
      }
 
     handleCancelEvent() {
-        //this will do a pop up/alert to ask if you're sure you want to cancel
-        //this will ask if you want to send a twilio to your invitees to let them know that it it canceled
-        //this will send twilio
-        axios.delete(`/event-view/${this.props.match.params.id}`).then(res => {
-            console.log('event deleted') //also need to go back to dashboard
-        })//this will delete event info from database using event id. all db info connected with this id will be deleted
+        var retVal = window.confirm("Do you want to cancel this event and notify your invited friends?");
+        if( retVal == true ){
+            axios.delete(`/event-view/${this.props.match.params.id}`).then(res => {
+                console.log('event deleted')
+                this.props.history.push('/dashboard')
+            })
+            //send twilio to all users w/a user phone number
+           return true;
+        }
+        else{
+           return false;
+        }
     }
 
     cancelChanges() {

@@ -220,7 +220,7 @@ module.exports = {
         const { id } = req.params
         const {time} = req.body
 
-        dbInstance.update_event_time([id, time])
+        dbInstance.update_event_times([id, time])
             .then(() => res.send(200).send('event finalized'))
             .catch((error) => {
                 console.log(error)
