@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
 id SERIAL PRIMARY KEY,
 name VARCHAR(180),
 email VARCHAR(200),
-phone INT,
+phone VARCHAR(10),
 photo VARCHAR(900),
 auth_id TEXT
 );

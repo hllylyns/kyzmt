@@ -243,8 +243,21 @@ module.exports = {
             })
             .catch((error) => {
                 console.log(error)
-                res.status(500).send('user not found')
+                res.status(500).send('friend not found')
             });
+    }, 
+    getProfile: (req, res, next)=>{
+        const dbInstance = req.app.get('db');
+        let {id} = req.user;
+
+        dbInstance.get_user([id])
+            .then(user=>{
+                console.log(user)
+                res.status(200).send(user)
+            })
+            .catch((error)=>{
+                res.status(500).send('user not found')
+            })
     }
 };
 

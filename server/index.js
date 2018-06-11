@@ -126,6 +126,7 @@ app.delete('/delete-invitee/:id/:user', controller.deleteInvitee);
 app.put('/event-finalize/:id', controller.finalizeEventTime);
 app.delete('/invite-view/:events_id/:id', controller.deleteRsvp);
 app.post('/invite-view/:events_id', controller.addRsvp);
+app.get('/profile', controller.getProfile);
 
 //twilio endpoints
 app.get('/testtwilio', function (req, res) {
@@ -141,6 +142,59 @@ app.get('/testtwilio', function (req, res) {
             res.status(500).send('twilio not working')
         })
 })
+app.get('/event-finalize/:eventName/:p', function (req, res) {
+    const {eventName, p} = req.params;
+    const {name} = req.user;
+
+    client.messages
+        .create({
+            to: '+1'+p,
+            from: TWILIO_PHONE,
+            body: `${name} has finalized the Kyzmt event details for ${eventName}: https://wwww.kyzmt.com`
+        })
+        .then((message) => console.log(message.sid))
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send('twilio not working')
+        })
+})
+app.get('/event-cancel/:eventName/:p', function (req, res) {
+    const {eventName, p} = req.params;
+    const {name} = req.user;
+
+    client.messages
+        .create({
+            to: '+1'+p,
+            from: TWILIO_PHONE,
+            body: `${name} has cancelled the Kyzmt event ${eventName}. Please contact ${name} if you have any questions. https://wwww.kyzmt.com`
+        })
+        .then((message) => console.log(message.sid))
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send('twilio not working')
+        })
+})
+app.get('/create-kyzmt/:eventName/:p', function (req, res) {
+    const {eventName, p} = req.params;
+    const {name} = req.user;
+
+    client.messages
+        .create({
+            to: '+1'+p,
+            from: TWILIO_PHONE,
+            body: `${name} has invited you to the Kyzmt event ${eventName}. Check it out at: https://wwww.kyzmt.com`
+        })
+        .then((message) => console.log(message.sid))
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send('twilio not working')
+        })
+})
+
+
+
+
+
 
 //port
 app.listen(SERVER_PORT, () => {

@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
-import { getUser } from './../../ducks/reducer';
-import { connect } from 'react-redux';
+// import { getUser } from './../../ducks/reducer';
+// import { connect } from 'react-redux';
 import Header from '../Header/Header';
+import axios from 'axios';
 
 class Profile extends Component {
-    // constructor(){
-    //     super();
+    constructor(){
+        super();
 
-    //     this.state={
-
-    //     }
-    // }
+        this.state={
+            user: {}
+        }
+    }
     componentDidMount() {
-        this.props.getUser();
+        axios.get('/profile').then(res=>{
+            this.setState({
+                user: res.data[0]
+            })
+        })
     }
 
 
     render() {
-        console.log(this.props.user)
-        let { name, photo, phone, email } = this.props.user;
+        console.log(this.state.user)
+        let { name, photo, phone, email } = this.state.user;
         return (
             <div>
                 <Header />
@@ -34,10 +39,4 @@ class Profile extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
-}
-
-export default connect(mapStateToProps, { getUser })(Profile);
+export default Profile;

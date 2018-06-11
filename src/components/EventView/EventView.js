@@ -28,6 +28,7 @@ class CreateEvent extends Component {
         this.togglePopAddTime = this.togglePopAddTime.bind(this);
         this.togglePopFriend = this.togglePopFriend.bind(this);
         this.cancelAddTime = this.cancelAddTime.bind(this);
+        this.handleNotifyGuests = this.handleNotifyGuests.bind(this);
     }
 
     componentDidMount() {
@@ -47,10 +48,6 @@ class CreateEvent extends Component {
                 console.log(this.state)
 
             })
-
-        //will also get their responses (responses table)
-        //i believe this is where my join could come into play, bc i will use invitees table to get users, but then
-        //i want the user pics off of users table
     }
 
     togglePopup() {
@@ -105,8 +102,8 @@ class CreateEvent extends Component {
         //alert - do you want to choose this time and notify your guests?
         axios.put(`/event-finalize/${this.props.match.params.id}`, {time}).then(res=>{
             console.log('event time set')
-            this.componentDidMount()
         })
+        this.componentDidMount()
      }
 
     handleCancelEvent() {
@@ -116,7 +113,18 @@ class CreateEvent extends Component {
                 console.log('event deleted')
                 this.props.history.push('/dashboard')
             })
-            //send twilio to all users w/a user phone number
+            let phoneNumbers = this.state.invitees.map((res, i)=>{
+                if(res.phone){
+                    return res.phone
+                }
+            })
+            console.log(phoneNumbers)
+            phoneNumbers.forEach((p, i)=>{
+                axios.get(`/event-cancel/${this.state.eventName}/${p}`).then(res=>{
+                        console.log(`text sent to ${p}!`)
+                        alert('Your guests have been notified of event cancellation')
+                    })
+                })
            return true;
         }
         else{
@@ -137,6 +145,23 @@ class CreateEvent extends Component {
         })
         this.componentDidMount()
     }
+
+    handleNotifyGuests(text){ ///this should go from props into pop out that allows user to type a selected body
+        //options could be "finalize time," "alert to changes"
+
+        let phoneNumbers = this.state.invitees.map((res, i)=>{
+            if(res.phone){
+                return res.phone
+            }
+        })
+        console.log(phoneNumbers)
+        phoneNumbers.forEach((p, i)=>{
+            axios.get(`/event-finalize/${this.state.eventName}/${p}`).then(res=>{
+                    console.log(`text sent to ${p}!`)
+                    alert('Your guests have been notified of event changes')
+                })
+            })
+        } 
 
 
     render() {
@@ -209,6 +234,7 @@ class CreateEvent extends Component {
                     <button onClick={this.togglePopAddTime} className="deletebox">+ time</button>
                     <button onClick={this.togglePopFriend} className="deletebox">+ friend</button>
                     <button onClick={() => this.handleCancelEvent()}>CANCEL KYZMT</button>
+                    <button onClick={this.handleNotifyGuests}>NOTIFY GUESTS</button>
                 </div>
                 <div>
                     <div>

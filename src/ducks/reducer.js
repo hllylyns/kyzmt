@@ -48,6 +48,10 @@ export default function reducer(state = initialState, action) {
             return Object.assign({}, state, {invitesList: state.invitesList.filter((e, i)=> i!== action.payload)})
         case COMPLETE_KYZMT:
             return Object.assign({}, state, {event: action.payload})
+            // let resetEvent = Object.assign({}, state, {event: initialState.event})
+            // let resetTimesList = Object.assign({}, state, {timesList: initialState.timesList})
+            // let resetInvitesList = Object.assign({}, state, {invitesList: initialState.invitesList})
+            // return Object.assign({}, state, {resetEvent, resetTimesList, resetInvitesList})
         case CANCEL_CREATE:
             let resetEvent = Object.assign({}, state, {event: initialState.event})
             let resetTimesList = Object.assign({}, state, {timesList: initialState.timesList})

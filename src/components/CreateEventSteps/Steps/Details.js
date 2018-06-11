@@ -23,7 +23,7 @@ class Details extends Component {
         return (
             <div>
                 <h1>New Event</h1>
-                <p>Event Name</p>
+                <p>Event Name*</p>
                 <input value={this.props.eventName}
                     onChange={(e) => this.props.createEvent("eventName", e.target.value)} />
                 <p>Description</p>

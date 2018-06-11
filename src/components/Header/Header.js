@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+// import particles from 'react-particles-js';
 
 
 export default function Header() {
-    return (
+    return ( 
         <nav className="header">
           <Link to='/dashboard' className='kyzmt'><div>kyzmt</div> </Link>
           <div className='link-wrap'>

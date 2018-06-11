@@ -1,11 +1,10 @@
-import React from 'react';
-import particles from 'react-particles-js';
-import Particles from '../../Particles';
-
-export default function Login() {
-    return (
-        <div id="particles-js">
-            {/* <img src={logo} alt=""/> kyzmt logo and animation goes here */}
+import React, { Component } from 'react';
+import Particles from 'react-particles-js';
+ 
+class App extends Component{
+  
+    render(){
+        return (
             <Particles params={{
                 "particles": {
                   "number": {
@@ -90,7 +89,7 @@ export default function Login() {
                   },
                   "modes": {
                     "grab": {
-                      "distance": 100,
+                      "distance": 400,
                       "line_linked": {
                         "opacity": 1
                       }
@@ -116,16 +115,9 @@ export default function Login() {
                 },
                 "retina_detect": true
               }}/>
-       
-            <div className="logindiv">
-            <h2 className="logintitle">kyzmt</h2>
-            <p className="loginsummary">Find the best times for social gatherings with Kyzmt,</p><br/>
-            <p className="loginsummary"> the app that helps you align schedules with friends.</p>
-            <a href={process.env.REACT_APP_LOGIN}>
-                <button className="startbutton">START</button>
-            </a>
-            </div>
-           
-        </div> 
-    )
+        );
+    };
+ 
 }
+
+export default Particles;

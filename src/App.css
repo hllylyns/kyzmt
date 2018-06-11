@@ -3,8 +3,15 @@
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   color: white;
-  background: linear-gradient(to right, #532B72, #F5A3AD);
+  background: linear-gradient(to right, #2b5876, #4e4376);
   height: 100vh;
+}
+.logintitle{
+  font-family: 'Montserrat Alternates', sans-serif;
+  font-weight: 300;
+  text-transform: lowercase;
+  font-size: 72px;
+  margin-bottom: 2.5rem;
 }
 
 h1 {
@@ -22,7 +29,7 @@ h2 {
 
 .dashlink {
   font-size: 1.25rem;
-  color: white;
+  color: rgb(9, 4, 26);
   text-decoration: none;
 }
 
@@ -56,7 +63,7 @@ input {
   padding: 1rem;
   margin: 1rem;
   justify-content: space-around;
-  background-color: #BA728F;
+  background-color: white;
   flex-wrap: wrap;
   display: inline-flex;
 }
@@ -73,7 +80,7 @@ input {
 }
 
 .header {
-  background-color: #532B72;
+  background-color:#26203a;
   color: white;
   font-family: 'Montserrat Alternates', sans-serif;;
   font-size: 40px;
@@ -83,6 +90,7 @@ input {
   height: 35px;
   text-decoration: none;
   margin-bottom: 2rem;
+  align-content: center
 }
 
 .link-wrap {
@@ -104,7 +112,7 @@ input {
 }
 
 .App-header {
-  background-color: #222;
+  background-color: rgb(9, 4, 26)2;
   height: 150px;
   padding: 20px;
   color: white;
@@ -131,7 +139,7 @@ button {
 }
 
 button:hover {
-  background: #BA728F;
+  background: #4A4774;
   text-decoration: none;
 }
 
@@ -321,6 +329,34 @@ ul {
   padding: .15rem;
 } */
 
+
+.loginsummary{
+  font-weight: 200;
+  font-size: 18px;
+  margin: 0px;
+}
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: linear-gradient(to right, #2b5876, #4e4376);
+  /* background-image: url(""); */
+  background-repeat: repeat;
+  background-size: 100vh;
+  /* background-position: 50% 50%; */
+}
+
+.logindiv{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.startbutton{
+  margin-top: 3rem;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

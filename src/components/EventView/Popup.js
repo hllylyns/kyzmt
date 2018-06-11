@@ -54,7 +54,7 @@ class Popup extends Component  {
                         value={this.state.location}
                         onChange={e => this.updateLocation(e.target.value)}>
                     </input><br />
-                    <button onClick={() => this.handleUpdateFn()}>SUBMIT</button>
+                    <button onClick={() => this.handleUpdateFn()}>SAVE</button>
                     <button onClick={this.props.cancelChanges}>CANCEL</button>
                 </div>
             </div>
