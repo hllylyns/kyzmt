@@ -201,8 +201,8 @@ class CreateEvent extends Component {
             return (
 
                 <div key={i}>
-                    <button onClick={() => this.handleDeleteTime(e.id)} className="deletebox">x</button>
-                    <button onClick={()=>this.handleFinalizeTime(e.start_time)} className="deletebox">finalize</button>
+                    <button onClick={() => this.handleDeleteTime(e.id)} className="timebuttonred">x</button>
+                    <button onClick={()=>this.handleFinalizeTime(e.start_time)} className="timebutton">finalize</button>
                     {displayTime}
                     {mappedPhotos}
                 </div>
@@ -220,17 +220,25 @@ class CreateEvent extends Component {
         })
 
         return (
-            <div>
+            <div className="eventview">
                 <Header />
-                <div>
-                    <h1>{this.state.eventName}</h1>
+                <div className="eventtotal">
+                <div className="eventdetails">
+                    <div className="editinfo">
+                    <h1 className="eventName">{this.state.eventName}</h1>
+                    
+                    </div>
+                    <div className="descriptionlocation">
+                    
                     <p>{this.state.eventDescription}</p>
-                    <h2>{this.state.eventLocation}</h2>
-                    <button onClick={this.togglePopup}>EDIT INFO</button>
+                   <h2>{this.state.eventLocation}</h2>
+                   <button onClick={this.togglePopup} className="deletebox">EDIT INFO</button>
+                    
+                </div>
                 </div>
                 <div>
                     {invitees}
-                    {eventTimes}
+                    <div className="eventviewtimes">{eventTimes}</div>
                     <button onClick={this.togglePopAddTime} className="deletebox">+ time</button>
                     <button onClick={this.togglePopFriend} className="deletebox">+ friend</button>
                     <button onClick={() => this.handleCancelEvent()}>CANCEL KYZMT</button>
@@ -273,6 +281,9 @@ class CreateEvent extends Component {
                         }
                     </div>
                 </div>
+               
+            
+            </div>
             </div>
         )
     }

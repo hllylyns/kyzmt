@@ -20,11 +20,36 @@ h1 {
 }
 
 h2 {
-  font-weight: 800; 
+  font-weight: 800;
+  margin: .5rem;
+}
+
+.cancel{
+  display: block;
+  width: 100%;
 }
 
 .create {
-  margin-top: 4rem;
+  /* font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  text-transform: capitalize;
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 3px;
+  color: #26203a;;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  border: #26203a 1.4px;
+  text-decoration: none;
+  background: whitesmoke; */
+  margin-bottom: 1rem;
+  margin-left: 3rem;
+  margin-top: 2.5rem;
+}
+
+.creatediv{
+  display: inline-block;
+  
 }
 
 .dashlink {
@@ -42,36 +67,82 @@ input {
   color: #000000;
 }
 
+.dashbar{
+  background-color:#26203a;
+  color: rgb(227, 244, 255);
+  font-size: 24px;
+  font-weight: 800;
+  height: 60px;
+  width: 100%;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  align-content: center;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+
+}
+
 .eventlist {
-  padding: .5rem;
+ 
   font-family: 'Montserrat', sans-serif;
-  font-weight: 200;
+  font-weight: 300;
   font-size: 1rem;
   text-decoration: none;
   color: white;
+  text-align: left;
   /* height: 25vh; */
-  /* padding: 2rem;
-  display: inline-flex;
-  justify-content: space-around; */
-
-  
+  display: block;
+  justify-content: space-around; 
 }
+
+
+.eventlistbox {
+ width: 100%;
+ justify-content: flex-start;
+ align-items: flex-start;
+ flex-direction: column;
+ padding: 1.5rem;
+ 
+  /* padding: .5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center; */
+}
+
+li{
+  margin-bottom:1rem;
+}
+
+.dashpage {
+    height: 100vh;
+    display: inline-flex;
+}
+
+
 
 .dashbox {
   height: 50vh;
   width: 35vw;
-  padding: 1rem;
-  margin: 1rem;
-  justify-content: space-around;
-  background-color: white;
+  /* padding: 1rem; */
+  margin: 2rem;
+  background-color: rgb(227, 244, 255);
   flex-wrap: wrap;
-  display: inline-flex;
+  
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+ 
 }
 
 .rsvpbox{
   width:60vw;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
+  justify-content: space-around;
 }
 
 .App-logo {
@@ -81,7 +152,7 @@ input {
 
 .header {
   background-color:#26203a;
-  color: white;
+  color: rgb(227, 244, 255);
   font-family: 'Montserrat Alternates', sans-serif;;
   font-size: 40px;
   padding: 25px 50px;
@@ -89,12 +160,14 @@ input {
   justify-content: space-between;
   height: 35px;
   text-decoration: none;
-  margin-bottom: 2rem;
-  align-content: center
+  /* margin-bottom: 2rem; */
+  /* align-content: center */
 }
+
 
 .link-wrap {
   display: flex;
+ align-items: center;
 }
 
 .links {
@@ -109,6 +182,9 @@ input {
 .kyzmt{
   text-decoration: none;
   color: white;
+  display: flex;
+  align-items: center;
+  /* padding-bottom: 1rem; */
 }
 
 .App-header {
@@ -120,6 +196,31 @@ input {
 
 .App-title {
   font-size: 1.5em;
+}
+
+.profilebox{
+width:50%;
+display: inline-block;
+margin: 4rem;
+padding: 1.5rem;
+padding-bottom: 3rem;
+background-color: #286f9e;
+border-radius: 3px;
+}
+
+.profiletext{
+  width: 50%;
+  display: inline-block;
+  font-size: 20px;
+  text-align: left;
+  margin-left: 1.5rem;
+  margin-right: .5rem;
+
+  /* padding-bottom: 3rem; */
+}
+
+.userprofile{
+  display: flex;
 }
 
 button {
@@ -152,6 +253,7 @@ ul {
   list-style-type: none;
   text-align: center;
   -webkit-padding-start: 0px;
+
 }
 
 .popup {
@@ -164,6 +266,7 @@ ul {
   bottom: 0;
   margin: auto;
   background-color: rgba(0,0,0, 0.5);
+  border-radius: 3px;
 }
 .popup_inner {
   position: absolute;
@@ -213,8 +316,8 @@ ul {
 .profilephoto {
   display: inline-block;
   position: relative;
-  width: 250px;
-  height: 250px;
+  width: 180px;
+  height: 180px;
   overflow: hidden;
   border-radius: 50%;
   margin: .5rem;
@@ -332,12 +435,12 @@ ul {
 
 .loginsummary{
   font-weight: 200;
-  font-size: 18px;
+  font-size: 20px;
   margin: 0px;
 }
 
 #particles-js {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background-color: linear-gradient(to right, #2b5876, #4e4376);
@@ -346,9 +449,14 @@ ul {
   background-size: 100vh;
   /* background-position: 50% 50%; */
 }
+#particles-js > div {
+ 
+  height: 100%;
+}
 
 .logindiv{
   position: fixed;
+  padding-top:20rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -358,7 +466,99 @@ ul {
   margin-top: 3rem;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* .eventtotal{
+  height: 100%;
+  width: 60%;
+  /* background: khaki; 
+  display: inline-block;
+} */
+
+.eventdetails{
+  width: 60%;
+  background: #286f9e;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: thin;
+  display: inline-block;
+}
+
+/* .editinfo{
+  width: 80%;
+  margin: 1rem;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: space-between;
+} */
+
+#editinfo >button{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  text-transform: capitalize;
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 3px;
+  color: black;
+  font-size: 16px;
+  padding: 10px 20px 10px 20px;
+  border: solid white 1.4px;
+  text-decoration: none;
+  background: black;
+  margin: 1rem;
+}
+
+/* .eventview{
+  background:linear-gradient(to right, #2b5876, #4e4376);;
+}
+
+.eventviewtimes{
+  width: 100%;
+  background-color: aqua;
+  align-content: center;
+  align-items: center;
+}
+
+.eventName{
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.descriptionlocation{
+  width: 70%;
+  margin: 1rem;
+  display: inline-block;
+} */
+
+.createevent{
+  height: 450px;
+  width: 60%;
+  margin-top: 3rem;
+  background: #286f9e; 
+  display: inline-block;
+  border-radius: 3px;
+  
+}
+
+.inviteview{
+  display: inline-block;
+  align-content: center;
+  align-items: center;
+  width: 30%;
+  background: #286f9e;
+  margin-top: 2rem;
+  border-radius: 3px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timebutton{
+  padding: 4px 10px 5px 10px;
+  text-transform: lowercase;
+  background: #3CCACE;
+}
+.timebuttonred{
+  padding: 4px 10px 5px 10px;
+  text-transform: lowercase;
+  background: crimson;
 }

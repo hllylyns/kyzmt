@@ -119,8 +119,7 @@ export default function Login() {
        
             <div className="logindiv">
             <h2 className="logintitle">kyzmt</h2>
-            <p className="loginsummary">Find the best times for social gatherings with Kyzmt,</p><br/>
-            <p className="loginsummary"> the app that helps you align schedules with friends.</p>
+            <p className="loginsummary">Find the best times for social gatherings with Kyzmt, the app that helps you align schedules with friends.</p><br/>
             <a href={process.env.REACT_APP_LOGIN}>
                 <button className="startbutton">START</button>
             </a>

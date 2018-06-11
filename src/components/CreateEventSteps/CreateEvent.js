@@ -24,7 +24,7 @@ class CreateEvent extends Component {
                     <Route component={Invite} path='/event/invite' />
                     <Route component={Times} path='/event/times' />
                 </Switch>
-                <Link to='/dashboard'><button onClick = {()=>this.handleCancelCreate()} className='cancel'>CANCEL</button></Link>
+                <div className='cancel'><Link to='/dashboard'><button onClick = {()=>this.handleCancelCreate()} >CANCEL</button></Link></div>
             </div>
         );
     }

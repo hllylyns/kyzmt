@@ -246,6 +246,7 @@ module.exports = {
                 res.status(500).send('friend not found')
             });
     }, 
+
     getProfile: (req, res, next)=>{
         const dbInstance = req.app.get('db');
         let {id} = req.user;
@@ -258,6 +259,19 @@ module.exports = {
             .catch((error)=>{
                 res.status(500).send('user not found')
             })
+    }, 
+
+    editUserProfile: (req, res, next)=>{
+        const dbInstance = req.app.get('db');
+        let {id} = req.user;
+        let {phone} = req.body;
+        console.log(phone)
+        dbInstance.update_user([id, phone])
+            .then(() => res.status(200).send('phone number updated'))
+             .catch((error) => {
+            console.log(error)
+            res.status(500).send('event NOT updated')
+            });
     }
 };
 

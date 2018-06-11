@@ -80,13 +80,13 @@ class Times extends Component {
         console.log(this.props)
         let times = this.props.timesList.map((element, i) => {
             return (
-                <div>
+                <div >
                     {element}<button className="deletebox" onClick={e => this.removeSelectedTime(e)}>x</button>
                 </div>
             )
         })
         return (
-            <div>
+            <div className="createevent">
                 <h1>Choose Dates</h1>
                 <input id="datetime" type="datetime-local" onInput={(e) => this.handleTimeInput(e.target.value)} className="timebox" />
                 <button onClick={this.handleSelectTime}>ADD TIME</button><br />

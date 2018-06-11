@@ -127,6 +127,7 @@ app.put('/event-finalize/:id', controller.finalizeEventTime);
 app.delete('/invite-view/:events_id/:id', controller.deleteRsvp);
 app.post('/invite-view/:events_id', controller.addRsvp);
 app.get('/profile', controller.getProfile);
+app.put('/profile', controller.editUserProfile);
 
 //twilio endpoints
 app.get('/testtwilio', function (req, res) {

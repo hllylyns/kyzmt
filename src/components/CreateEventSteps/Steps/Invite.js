@@ -22,6 +22,7 @@ class Invite extends Component {
             )
         })
         return (
+            <div className="createevent">
             <div className="steps_outer">
             <div className="steps_inner">
                 <h1>Invite Friends </h1>
@@ -30,8 +31,11 @@ class Invite extends Component {
                     onChange={(e) => this.handleInvite(e.target.value)} /> */}
                 <h2>Send Invites To</h2>
                 {invitees}
-                <Link to='/event/details'><button>PREV</button></Link>
-                <Link to='/event/times'><button>NEXT</button></Link>
+                <div className="cancel">
+                <Link to='/event/details'><button >PREV</button></Link>
+                <Link to='/event/times'><button >NEXT</button></Link>
+                </div>
+            </div>
             </div>
             </div>
         );

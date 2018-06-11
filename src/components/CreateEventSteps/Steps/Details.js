@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { createEvent } from '../../../ducks/reducer';
 import { Link } from 'react-router-dom';
 
+
+
 class Details extends Component {
 
 
@@ -21,7 +23,7 @@ class Details extends Component {
 
 
         return (
-            <div>
+            <div className="createevent">
                 <h1>New Event</h1>
                 <p>Event Name*</p>
                 <input value={this.props.eventName}
@@ -33,6 +35,7 @@ class Details extends Component {
                 <input value={this.props.location}
                     onChange={(e) => this.props.createEvent("location", e.target.value)} /> <br/>
               <Link to='/event/invite'> <button onClick={this.handleCheckName}>NEXT</button></Link>
+              {/* <Particles/> */}
             </div>
         )
     }

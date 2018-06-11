@@ -111,14 +111,13 @@ class InviteView extends Component {
         return (
             <div>
                 <Header />
+                <div className="inviteview">
                 <div>
                     <h1>{this.state.eventName}</h1>
                     <p>{this.state.eventDescription}</p>
                     <h2>{this.state.eventLocation}</h2>
                 </div>
-                <div>
-                    {invitees}
-                </div>
+                
                 <div className="rsvpbox">
                     {this.renderResponses()}
                 </div>
@@ -126,6 +125,10 @@ class InviteView extends Component {
                             <button onClick={this.handleSubmitResponse}>SUBMIT RSVP</button>
                             <button onClick={this.handleUpdateResponse}>CHANGE RSVP</button>
                         </div> */}
+            </div>
+            <div>
+                    {invitees}
+                </div>
             </div>
         )
     }
